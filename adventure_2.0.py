@@ -1,4 +1,3 @@
-
 import random
 import sys
 import time
@@ -24,19 +23,19 @@ def health():
         sys.exit()
 
 
+# ---------------- CHOICE FUNCTION ----------------
 
 def get_choice():
-            while True:
-                choice = input("> ")
+    while True:
+        choice = input("> ")
 
-                if choice in ["1", "2", "3"]:
-                    return choice
+        if choice in ["1", "2", "3"]:
+            return choice
 
-                print("❌ Please choose 1, 2, or 3.")
+        print("❌ Please choose 1, 2, or 3.")
+
 
 # ---------------- BARRIER FUNCTION ----------------
-
-
 
 def play_barrier(name, options, chances, success_messages, fail_messages):
 
@@ -50,25 +49,30 @@ def play_barrier(name, options, chances, success_messages, fail_messages):
 
         player_choice = get_choice()
 
-        # Get the chance for the player's chosen option
-        chance = chances[int(player_choice) - 1]
+        # Get the position of the player's chosen option
+        index = int(player_choice) - 1
+
+        # Get the chance for that option
+        chance = chances[index]
 
         # Generate a random number between 1 and 100
         roll = random.randint(1, 100)
 
         if roll <= chance:
-            print(random.choice(success_messages))
+
+            # Show the success message for the chosen option
+            print(success_messages[index])
+
             return True
 
         else:
-            print(random.choice(fail_messages))
+
+            # Show the failure message for the chosen option
+            print(fail_messages[index])
+
             health()
 
             print("\n⚠️ You must try this barrier again!")
-
-
-
-
 
 
 # ---------------- START GAME ----------------
@@ -103,12 +107,15 @@ if qa == "yes":
     play_barrier(
         "Barrier 1: Rock 🪨",
         ["Climb", "Go around", "Break"],
+        [75, 45, 30],
         [
             "You climbed the rock! 🎉🌟✨",
-            "You successfully passed the rock! 🎉"
+            "You found your way around the rock! 🎉",
+            "You successfully broke the rock! 💥🎉"
         ],
         [
             "You slipped and fell! 💀",
+            "You couldn't find your way around and got lost! 💀",
             "The rock collapsed on you! 💀"
         ]
     )
@@ -122,7 +129,8 @@ if qa == "yes":
         [75, 45, 30],
         [
             "The crocodile couldn't see you! 🎉🌟✨",
-            "You successfully got past the crocodile! 🎉"
+            "You successfully ran past the crocodile! 🎉",
+            "You defeated the crocodile! 🎉"
         ],
         [
             "The crocodile saw you! 💀",
@@ -137,13 +145,15 @@ if qa == "yes":
     play_barrier(
         "Barrier 3: Logs 🪵",
         ["Jump", "Swim", "Walk over"],
+        [45, 30, 70],
         [
             "You jumped over the log! 🎉🌟✨",
-            "You successfully crossed the logs! 🎉"
+            "You successfully swam across the logs! 🎉",
+            "You carefully walked over the logs! 🎉"
         ],
         [
             "You hit the log! 💀",
-            "You got stuck inside the log! 💀",
+            "You got stuck inside the logs! 💀",
             "You slipped and fell! 💀"
         ]
     )
@@ -154,13 +164,15 @@ if qa == "yes":
     play_barrier(
         "Barrier 4: Snake 🐍",
         ["Stay still", "Attack", "Run"],
+        [45, 30, 75],
         [
-            "You avoided the snake! 🎉🌟✨",
+            "You stayed still and avoided the snake! 🎉🌟✨",
+            "The venom was strong but you are stronger! 🎉",
             "You escaped the snake! 🎉"
         ],
         [
             "The snake attacked you! 💀",
-            "The snake bit you! 💀",
+            "The snake bit you during the fight! 💀",
             "You were too slow! 💀"
         ]
     )
@@ -171,13 +183,15 @@ if qa == "yes":
     play_barrier(
         "Barrier 5: Storm 🌪️",
         ["Push forward", "Hide", "Wait"],
+        [45, 70, 30],
         [
-            "You escaped the storm! 🎉🌟✨",
+            "You pushed forward and escaped the storm! 🎉🌟✨",
+            "You found shelter! 🎉",
             "The storm passed safely! 🎉"
         ],
         [
             "The storm threw you away! 💀",
-            "The storm caught you! 💀",
+            "The storm found your hiding spot! 💀",
             "The storm got even stronger! 💀"
         ]
     )
@@ -188,9 +202,11 @@ if qa == "yes":
     play_barrier(
         "Barrier 6: Shark 🦈",
         ["Swim fast", "Float", "Dive"],
+        [30, 70, 45],
         [
-            "The shark was too slow! 🎉🌟✨",
-            "You escaped the shark! 🎉"
+            "You swam faster than the shark! 🎉🌟✨",
+            "The shark thought you were dead! 🎉",
+            "You escaped the shark by diving! 🎉"
         ],
         [
             "The shark caught you! 💀",
@@ -204,15 +220,17 @@ if qa == "yes":
 
     play_barrier(
         "Barrier 7: Rock 🪨",
-        ["Climb", "Break", "Go around"],
+        ["Climb", "Go around", "Break"],
+        [30, 70, 45],
         [
             "You climbed the rock! 🎉🌟✨",
-            "You successfully crossed the rock! 🎉"
+            "You found your way around the rock! 🎉",
+            "You successfully broke the rock! 💥🎉"
         ],
         [
             "You slipped and fell! 💀",
-            "The rock collapsed on you! 💀",
-            "The water was too deep! 💀"
+            "The water was too deep! 💀",
+            "The rock collapsed on you! 💀"
         ]
     )
 
@@ -222,8 +240,10 @@ if qa == "yes":
     play_barrier(
         "Barrier 8: Final Crocodile 🐊",
         ["Sneak", "Run", "Trick it"],
+        [30, 70, 45],
         [
             "The crocodile couldn't see you! 🎉🌟✨",
+            "You were too fast for the crocodile! 🎉",
             "You tricked the crocodile! 🎉"
         ],
         [
@@ -239,9 +259,11 @@ if qa == "yes":
     play_barrier(
         "Final Barrier: Bridge 🌉",
         ["Cross carefully", "Run", "Jump"],
+        [70, 45, 30],
         [
             "Slow is steady and steady is fast! 🎉🌟✨",
-            "You safely crossed the bridge! 🎉"
+            "You ran across the bridge before it collapsed! 🎉",
+            "You jumped over the bridge! 🎉"
         ],
         [
             "The bridge collapsed! 💀",
@@ -278,4 +300,3 @@ elif qa == "no":
 else:
 
     print("I couldn't properly hear ya!")
-
