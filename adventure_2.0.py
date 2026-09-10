@@ -37,25 +37,26 @@ def get_choice():
 # ---------------- BARRIER FUNCTION ----------------
 
 
-def play_barrier(name, options, success_messages, fail_messages):
+
+def play_barrier(name, options, chances, success_messages, fail_messages):
 
     while True:
 
         print(f"\n{name}")
 
-        print(f"1. {options[0]}")
-        print(f"2. {options[1]}")
-        print(f"3. {options[2]}")
-
-        
+        print(f"1. {options[0]} ({chances[0]}% chance)")
+        print(f"2. {options[1]} ({chances[1]}% chance)")
+        print(f"3. {options[2]} ({chances[2]}% chance)")
 
         player_choice = get_choice()
 
+        # Get the chance for the player's chosen option
+        chance = chances[int(player_choice) - 1]
 
-        # Randomly choose the correct answer
-        correct_choice = random.choice(["1", "2", "3"])
+        # Generate a random number between 1 and 100
+        roll = random.randint(1, 100)
 
-        if player_choice == correct_choice:
+        if roll <= chance:
             print(random.choice(success_messages))
             return True
 
@@ -64,6 +65,8 @@ def play_barrier(name, options, success_messages, fail_messages):
             health()
 
             print("\n⚠️ You must try this barrier again!")
+
+
 
 
 
@@ -116,6 +119,7 @@ if qa == "yes":
     play_barrier(
         "Barrier 2: Crocodile 🐊",
         ["Sneak", "Run", "Attack"],
+        [75, 45, 30],
         [
             "The crocodile couldn't see you! 🎉🌟✨",
             "You successfully got past the crocodile! 🎉"
