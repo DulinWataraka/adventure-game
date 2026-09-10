@@ -15,11 +15,17 @@ print(f'{name}.....I have a quest for you Would you like to accept it? ')
 qa=input("yes/no ")
 
 if qa=="yes":
+<<<<<<< HEAD
     print("Tf")
     print("yooowwww")
     print("Well that's what I like to here....")
     print("All you have to do is help cross to the other side")
     nksdsdsdsdsqwdfegtgggfefrefefefffrfrgaafdvdwwfdfdffedfedfefef
+=======
+    print("Well that's what I like to here....")
+    print("All you have to do is help cross to the other side")
+    
+>>>>>>> 93f436fe329745ba3663fb7f579cd9b33876440c
     
     
     print(f'This is your health bar \n {Hearts}')
