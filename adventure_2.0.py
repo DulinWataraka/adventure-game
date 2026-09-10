@@ -24,34 +24,48 @@ def health():
         sys.exit()
 
 
+
+def get_choice():
+            while True:
+                choice = input("> ")
+
+                if choice in ["1", "2", "3"]:
+                    return choice
+
+                print("❌ Please choose 1, 2, or 3.")
+
 # ---------------- BARRIER FUNCTION ----------------
+
 
 def play_barrier(name, options, success_messages, fail_messages):
 
-    print(f"\n{ name }")
+    while True:
 
-    print(f"1. {options[0]}")
-    print(f"2. {options[1]}")
-    print(f"3. {options[2]}")
+        print(f"\n{name}")
 
-    player_choice = input("> ")
+        print(f"1. {options[0]}")
+        print(f"2. {options[1]}")
+        print(f"3. {options[2]}")
 
-    # Check for invalid input
-    if player_choice not in ["1", "2", "3"]:
-        print("❌ That's not a valid choice!")
-        return play_barrier(name, options, success_messages, fail_messages)
+        
 
-    # Randomly choose the correct answer
-    correct_choice = random.choice(["1", "2", "3"])
+        player_choice = get_choice()
 
-    if player_choice == correct_choice:
-        print(random.choice(success_messages))
-        return True
 
-    else:
-        print(random.choice(fail_messages))
-        health()
-        return False
+        # Randomly choose the correct answer
+        correct_choice = random.choice(["1", "2", "3"])
+
+        if player_choice == correct_choice:
+            print(random.choice(success_messages))
+            return True
+
+        else:
+            print(random.choice(fail_messages))
+            health()
+
+            print("\n⚠️ You must try this barrier again!")
+
+
 
 
 # ---------------- START GAME ----------------
