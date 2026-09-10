@@ -91,9 +91,9 @@ def play_barrier(name, options, chances, success_messages, fail_messages):
 
         print(f"\n{name}")
 
-        print(f"1. {options[0]} ({chances[0]}% chance)")
-        print(f"2. {options[1]} ({chances[1]}% chance)")
-        print(f"3. {options[2]} ({chances[2]}% chance)")
+        print(f"1. {options[0]}")
+        print(f"2. {options[1]}")
+        print(f"3. {options[2]}")
 
         player_choice = get_choice()
 
@@ -108,8 +108,15 @@ def play_barrier(name, options, chances, success_messages, fail_messages):
 
         if roll <= chance:
 
-            # Show the success message for the chosen option
             print(success_messages[index])
+
+            # Check if the player chose the riskiest option
+            lowest_chance = min(chances)
+
+            if chance == lowest_chance:
+                inventory.append("🧪 Health Potion")
+                print("\n🎁 You found a Health Potion!")
+                show_inventory()
 
             return True
 
@@ -144,8 +151,7 @@ if qa == "yes":
     print("\nThis is your health bar:")
     show_health()
 
-    inventory.append("🧪 Health Potion")
-    show_inventory()
+    
 
 
 
