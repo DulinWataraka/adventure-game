@@ -1,6 +1,4 @@
-#test 
-print("testing")
-print("testing 2")
+#test
 import random
 import sys
 import time
@@ -18,8 +16,6 @@ print(f'{name}.....I have a quest for you Would you like to accept it? ')
 qa=input("yes/no ")
 
 if qa=="yes":
-    print("Tf")
-    print("yooowwww")
     print("Well that's what I like to here....")
     print("All you have to do is help cross to the other side")
     
