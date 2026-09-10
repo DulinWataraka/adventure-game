@@ -3,12 +3,24 @@ import sys
 import time
 
 HP = 5
+inventory = []
 
 
 # ---------------- HEALTH ----------------
 
 def show_health():
     print("Health:", "❤️ " * HP)
+
+
+def show_inventory():
+    print("\n🎒 Inventory:")
+
+    if len(inventory) == 0:
+        print("Your inventory is empty.")
+
+    else:
+        for item in inventory:
+            print(f"- {item}")
 
 
 def health():
@@ -21,6 +33,42 @@ def health():
         print("\n💀 Your journey ends here...")
         print("But the story of the traveller remains.")
         sys.exit()
+
+
+#inventory use
+
+def use_potion():
+    global HP
+
+    if "🧪 Health Potion" in inventory:
+
+        if HP == 5:
+            print("\n❤️ Your health is already full!")
+
+        else:
+            HP += 1
+            inventory.remove("🧪 Health Potion")
+            print("\n🧪 You used the Health Potion!")
+            show_health()
+
+    else:
+        print("\n❌ You don't have a Health Potion.")
+
+#ask user to use inventory
+
+def ask_use_potion():
+    if "🧪 Health Potion" in inventory:
+
+        choice = input("\n🧪 You have a Health Potion. Use it? yes/no: ").lower()
+
+        if choice == "yes":
+            use_potion()
+
+        elif choice == "no":
+            print("You saved the potion.")
+
+        else:
+            print("❌ Please enter yes or no.")
 
 
 # ---------------- CHOICE FUNCTION ----------------
@@ -72,6 +120,9 @@ def play_barrier(name, options, chances, success_messages, fail_messages):
 
             health()
 
+            ask_use_potion()
+
+
             print("\n⚠️ You must try this barrier again!")
 
 
@@ -93,11 +144,24 @@ if qa == "yes":
     print("\nThis is your health bar:")
     show_health()
 
+    inventory.append("🧪 Health Potion")
+    show_inventory()
+
+
+
     print(
-        "\n🧍‍♂️➡️  ≋≋≋≋≋≋❓≋≋≋≋≋❓≋≋≋≋≋❓"
+        "\n🧍➡️  ≋≋≋≋≋≋❓≋≋≋≋≋❓≋≋≋≋≋❓"
         "≋≋≋≋≋❓≋≋≋≋≋❓≋≋≋≋≋❓≋≋≋≋≋❓"
-        "≋≋≋≋≋❓➡️🏝️🏆\n"
+        "≋≋≋≋≋❓➡️🏝️ 🏆 \n"
     )
+
+    while True:
+        press=input("Press enter to start...")
+        if press == "":
+            break
+
+
+
 
     print("Let the journey start!")
 
