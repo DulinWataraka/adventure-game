@@ -19,8 +19,10 @@ def show_inventory():
         print("Your inventory is empty.")
 
     else:
-        for item in inventory:
-            print(f"- {item}")
+        potion_count = inventory.count("🧪 Health Potion")
+
+        if potion_count > 0:
+            print(f"🧪 Health Potion ×{potion_count}")
 
 
 def health():
@@ -85,7 +87,7 @@ def get_choice():
 
 # ---------------- BARRIER FUNCTION ----------------
 
-def play_barrier(name, options, chances, success_messages, fail_messages):
+def play_barrier(name, options, chances, success_messages, fail_messages, reward=None):
 
     while True:
 
@@ -110,12 +112,11 @@ def play_barrier(name, options, chances, success_messages, fail_messages):
 
             print(success_messages[index])
 
-            # Check if the player chose the riskiest option
             lowest_chance = min(chances)
 
-            if chance == lowest_chance:
-                inventory.append("🧪 Health Potion")
-                print("\n🎁 You found a Health Potion!")
+            if chance == lowest_chance and reward is not None:
+                inventory.append(reward)
+                print(f"\n🎁 You found {reward}!")
                 show_inventory()
 
             return True
@@ -187,7 +188,8 @@ if qa == "yes":
             "You slipped and fell! 💀",
             "You couldn't find your way around and got lost! 💀",
             "The rock collapsed on you! 💀"
-        ]
+        ],
+        reward="🧪 Health Potion"
     )
 
 
@@ -206,7 +208,8 @@ if qa == "yes":
             "The crocodile saw you! 💀",
             "The crocodile caught you! 💀",
             "You lost the fight! 💀"
-        ]
+        ],
+        
     )
 
 
@@ -282,7 +285,8 @@ if qa == "yes":
             "The shark caught you! 💀",
             "You moved and attracted the shark! 💀",
             "You drowned while diving! 💀"
-        ]
+        ],
+        
     )
 
 
@@ -320,7 +324,8 @@ if qa == "yes":
             "The crocodile saw you! 💀",
             "The crocodile caught you! 💀",
             "Your trick failed! 💀"
-        ]
+        ],
+        reward="🧪 Health Potion"
     )
 
 
