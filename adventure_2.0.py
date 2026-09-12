@@ -4,7 +4,7 @@ import time
 
 HP = 5
 inventory = []
-XP = 0
+LEVEL_PROGRESS = 0
 LEVEL = 1
 
 
@@ -76,38 +76,28 @@ def ask_use_potion():
 
 
 
-def add_xp(amount):
-    global XP, LEVEL
+def update_level(success):
+    global LEVEL, LEVEL_PROGRESS
 
-    XP += amount
+    if success:
+        LEVEL_PROGRESS += 1
+    else:
+        LEVEL_PROGRESS -= 1
 
-    if XP < 0:
-        XP = 0
-
-    # Check if player should level up
-    while XP >= LEVEL * 100:
+    # Level up
+    if LEVEL_PROGRESS >= 4:
         LEVEL += 1
+        LEVEL_PROGRESS = 0
         print(f"\n🎉 YOU REACHED LEVEL {LEVEL}!")
 
-    # Check if player should lose a level
-    while LEVEL > 1 and XP < (LEVEL - 1) * 100:
-        LEVEL -= 1
-        print(f"\n💀 YOU LOST A LEVEL!")
-        print(f"You are now Level {LEVEL}")
+    # Don't let progress go below 0
+    if LEVEL_PROGRESS < 0:
+        LEVEL_PROGRESS = 0
 
-    show_xp_bar()
+    filled = "█" * (LEVEL_PROGRESS * 3)
+    empty = "░" * (12 - (LEVEL_PROGRESS * 3))
 
-
-def show_xp_bar():
-
-    progress = XP % 100
-
-    filled = progress // 10
-    empty = 10 - filled
-
-    bar = "█" * filled + "░" * empty
-
-    print(f"\n{LEVEL} {bar} {LEVEL + 1}")
+    print(f"\n{LEVEL} {filled}{empty} {LEVEL + 1}")
 
 # ---------------- CHOICE FUNCTION ----------------
 
@@ -151,7 +141,7 @@ def play_barrier(name, options, chances, success_messages, fail_messages, reward
 
             print(success_messages[index])
 
-            add_xp(10)
+            update_level(True)
 
             lowest_chance = min(chances)
 
@@ -167,7 +157,7 @@ def play_barrier(name, options, chances, success_messages, fail_messages, reward
             # Show the failure message for the chosen option
             print(fail_messages[index])
 
-            add_xp(-5)
+            update_level(False)
 
             health()
 
