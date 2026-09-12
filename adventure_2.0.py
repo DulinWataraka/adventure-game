@@ -169,21 +169,33 @@ def play_barrier(name, options, chances, success_messages, fail_messages, reward
 
 # ---------------- START GAME ----------------
 
+
+
+
 print("Welcome fellow traveller")
 
+
 name = input("What's thy name? ")
+time.sleep(2)
+
 
 print(f"\n{name}..... I have a quest for you.")
+time.sleep(2)
 qa = input("Would you like to accept it? yes/no: ").lower()
+time.sleep(2)
 
 
 if qa == "yes":
 
     print("\nWell that's what I like to hear....")
+    time.sleep(3)
     print("All you have to do is help cross to the other side.")
 
+    time.sleep(3)
     print("\nThis is your health bar:")
+    time.sleep(2)
     show_health()
+    time.sleep(2)
 
     
 
@@ -194,6 +206,7 @@ if qa == "yes":
         "≋≋≋≋≋❓≋≋≋≋≋❓≋≋≋≋≋❓≋≋≋≋≋❓"
         "≋≋≋≋≋❓➡️🏝️ 🏆 \n"
     )
+    time.sleep(2)
 
     while True:
         press=input("Press enter to start...")
@@ -204,6 +217,7 @@ if qa == "yes":
 
 
     print("Let the journey start!")
+    time.sleep(2)
 
 
     # ---------------- BARRIER 1 ----------------
@@ -224,6 +238,7 @@ if qa == "yes":
         ],
         reward="🧪 Health Potion"
     )
+    time.sleep(2)
 
 
     # ---------------- BARRIER 2 ----------------
@@ -244,6 +259,7 @@ if qa == "yes":
         ],
         
     )
+    time.sleep(2)
 
 
     # ---------------- BARRIER 3 ----------------
@@ -263,6 +279,7 @@ if qa == "yes":
             "You slipped and fell! 💀"
         ]
     )
+    time.sleep(2)
 
 
     # ---------------- BARRIER 4 ----------------
@@ -282,6 +299,7 @@ if qa == "yes":
             "You were too slow! 💀"
         ]
     )
+    time.sleep(2)
 
 
     # ---------------- BARRIER 5 ----------------
@@ -301,6 +319,7 @@ if qa == "yes":
             "The storm got even stronger! 💀"
         ]
     )
+    time.sleep(2)
 
 
     # ---------------- BARRIER 6 ----------------
@@ -321,6 +340,7 @@ if qa == "yes":
         ],
         
     )
+    time.sleep(2)
 
 
     # ---------------- BARRIER 7 ----------------
@@ -340,6 +360,7 @@ if qa == "yes":
             "The rock collapsed on you! 💀"
         ]
     )
+    time.sleep(2)
 
 
     # ---------------- BARRIER 8 ----------------
@@ -360,6 +381,7 @@ if qa == "yes":
         ],
         reward="🧪 Health Potion"
     )
+    time.sleep(2)
 
 
     # ---------------- FINAL BARRIER ----------------
@@ -379,12 +401,15 @@ if qa == "yes":
             "You fell into the abyss! 💀"
         ]
     )
+    time.sleep(2)
 
 
     # ---------------- WIN ----------------
 
     print("\n✨ Thank you, brave traveller.")
+    time.sleep(2)
     print("The path is now safe because of you! 🏝️🏆")
+    time.sleep(2)
 
     frames = [
         "   🎆   ",
@@ -396,6 +421,8 @@ if qa == "yes":
     for f in frames:
         print("\r" + f, end="")
         time.sleep(0.5)
+
+    time.sleep(2)
 
     print("\n🏝️ YOU MADE IT! YOU WIN 🏆")
 
