@@ -4,6 +4,8 @@ import time
 
 HP = 5
 inventory = []
+XP = 0
+LEVEL = 1
 
 
 # ---------------- HEALTH ----------------
@@ -73,17 +75,54 @@ def ask_use_potion():
             print("❌ Please enter yes or no.")
 
 
+
+def add_xp(amount):
+    global XP, LEVEL
+
+    XP += amount
+
+    if XP < 0:
+        XP = 0
+
+    # Check if player should level up
+    while XP >= LEVEL * 100:
+        LEVEL += 1
+        print(f"\n🎉 YOU REACHED LEVEL {LEVEL}!")
+
+    # Check if player should lose a level
+    while LEVEL > 1 and XP < (LEVEL - 1) * 100:
+        LEVEL -= 1
+        print(f"\n💀 YOU LOST A LEVEL!")
+        print(f"You are now Level {LEVEL}")
+
+    show_xp_bar()
+
+
+def show_xp_bar():
+
+    progress = XP % 100
+
+    filled = progress // 10
+    empty = 10 - filled
+
+    bar = "█" * filled + "░" * empty
+
+    print(f"\n{LEVEL} {bar} {LEVEL + 1}")
+
 # ---------------- CHOICE FUNCTION ----------------
 
 def get_choice():
     while True:
-        choice = input("> ")
+        choice = input("> ").lower()
+
+        if choice == "inventory":
+            show_inventory()
+            continue
 
         if choice in ["1", "2", "3"]:
             return choice
 
-        print("❌ Please choose 1, 2, or 3.")
-
+        print("❌ Please choose 1, 2, or 3, or type 'inventory'.")
 
 # ---------------- BARRIER FUNCTION ----------------
 
@@ -112,6 +151,8 @@ def play_barrier(name, options, chances, success_messages, fail_messages, reward
 
             print(success_messages[index])
 
+            add_xp(10)
+
             lowest_chance = min(chances)
 
             if chance == lowest_chance and reward is not None:
@@ -125,6 +166,8 @@ def play_barrier(name, options, chances, success_messages, fail_messages, reward
 
             # Show the failure message for the chosen option
             print(fail_messages[index])
+
+            add_xp(-5)
 
             health()
 
