@@ -3,6 +3,7 @@ import sys
 import time
 
 HP = 5
+MAX_HP = 5
 inventory = []
 LEVEL_PROGRESS = 0
 LEVEL = 1
@@ -11,7 +12,10 @@ LEVEL = 1
 # ---------------- HEALTH ----------------
 
 def show_health():
-    print("Health:", "❤️ " * HP)
+    full_hearts = "❤️  " * HP
+    missing_hearts = "🖤 " * (MAX_HP - HP)
+
+    print("Health:", full_hearts + missing_hearts)
 
 
 def show_inventory():
@@ -46,11 +50,11 @@ def use_potion():
 
     if "🧪 Health Potion" in inventory:
 
-        if HP == 5:
+        if HP == MAX_HP:
             print("\n❤️ Your health is already full!")
 
         else:
-            HP += 1
+            HP = min(HP + 1, MAX_HP)
             inventory.remove("🧪 Health Potion")
             print("\n🧪 You used the Health Potion!")
             show_health()
@@ -65,7 +69,8 @@ def use_potion():
 #####      xp bar      #####
 
 def update_level(success):
-    global LEVEL, LEVEL_PROGRESS
+
+    global LEVEL, LEVEL_PROGRESS, MAX_HP, HP
 
     if success:
         LEVEL_PROGRESS += 1
@@ -76,7 +81,13 @@ def update_level(success):
     if LEVEL_PROGRESS >= 4:
         LEVEL += 1
         LEVEL_PROGRESS = 0
+
+        
+        MAX_HP += 1
+        HP = MAX_HP
+
         print(f"\n🎉 YOU REACHED LEVEL {LEVEL}!")
+        print(f"Health: {'❤️ ' * MAX_HP}")
 
     # Don't let progress go below 0
     if LEVEL_PROGRESS < 0:
@@ -185,7 +196,7 @@ if qa == "yes":
 
     time.sleep(3)
     print("\nThis is your health bar:")
-    time.sleep(2)
+    time.sleep(1)
     show_health()
     time.sleep(2)
 
