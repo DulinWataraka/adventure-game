@@ -58,23 +58,11 @@ def use_potion():
     else:
         print("\n❌ You don't have a Health Potion.")
 
-#ask user to use inventory
-
-def ask_use_potion():
-    if "🧪 Health Potion" in inventory:
-
-        choice = input("\n🧪 You have a Health Potion. Use it? yes/no: ").lower()
-
-        if choice == "yes":
-            use_potion()
-
-        elif choice == "no":
-            print("You saved the potion.")
-
-        else:
-            print("❌ Please enter yes or no.")
 
 
+
+
+#####      xp bar      #####
 
 def update_level(success):
     global LEVEL, LEVEL_PROGRESS
@@ -109,10 +97,14 @@ def get_choice():
             show_inventory()
             continue
 
+        if choice == "potion":
+            use_potion()
+            continue
+
         if choice in ["1", "2", "3"]:
             return choice
 
-        print("❌ Please choose 1, 2, or 3, or type 'inventory'.")
+        print("❌ Please choose 1, 2, or 3, or type 'inventory' or 'potion'.")
 
 # ---------------- BARRIER FUNCTION ----------------
 
@@ -161,7 +153,7 @@ def play_barrier(name, options, chances, success_messages, fail_messages, reward
 
             health()
 
-            ask_use_potion()
+        
 
 
             print("\n⚠️ You must try this barrier again!")
