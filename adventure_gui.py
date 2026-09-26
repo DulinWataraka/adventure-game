@@ -52,6 +52,33 @@ def start_game():
 def show_quest(name):
     title.config(text=f"{name}..... I have a quest for you.")
 
+    quest_label = tk.Label(
+        window,
+        text="Will you accept this quest?",
+        font=("Arial", 18)
+    )
+    quest_label.pack(pady=30)
+
+    accept_button = tk.Button(
+        window,
+        text="⚔️ ACCEPT",
+        font=("Arial", 14, "bold"),
+        width=15,
+        command=lambda: accept_quest(name)
+    )
+    accept_button.pack(pady=10)
+
+    decline_button = tk.Button(
+        window,
+        text="❌ DECLINE",
+        font=("Arial", 14, "bold"),
+        width=15
+    )
+    decline_button.pack(pady=10)
+
+    def accept_quest(name):
+        title.config(text=f"Good choice, {name}...")
+
 
 # ---------------- START BUTTON ----------------
 
