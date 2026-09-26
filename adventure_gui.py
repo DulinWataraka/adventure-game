@@ -1,4 +1,5 @@
 import tkinter as tk
+import random
 
 # ---------------- WINDOW ----------------
 
@@ -117,22 +118,34 @@ def accept_quest(name, quest_label, accept_button, decline_button):
     )
     story_label.pack(pady=30)
 
+
+    choice1 = tk.Button(
+    window,
+    text="1. Climb",
+    font=("Arial", 14),
+    width=20,
+    command=lambda: choose_barrier(0)
+    )
     
     choice1.pack(pady=5)
 
     choice2 = tk.Button(
-        window,
-        text="2. Go Around",
-        font=("Arial", 14),
-        width=20
+    window,
+    text="2. Go Around",
+    font=("Arial", 14),
+    width=20,
+    command=lambda: choose_barrier(1)
     )
     choice2.pack(pady=5)
 
+
+
     choice3 = tk.Button(
-        window,
-        text="3. Break Through",
-        font=("Arial", 14),
-        width=20
+    window,
+    text="3. Break Through",
+    font=("Arial", 14),
+    width=20,
+    command=lambda: choose_barrier(2)
     )
     choice3.pack(pady=5)
 
