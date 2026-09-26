@@ -87,6 +87,16 @@ def show_quest(name, name_label, name_entry, continue_button):
     decline_button.pack(pady=10)
 
 
+
+def choose_barrier(choice):
+    chances = [75, 45, 30]
+
+    roll = random.randint(1, 100)
+
+    if roll <= chances[choice]:
+        print("SUCCESS")
+    else:
+        print("FAILED")
     #accept quest function
 
 def accept_quest(name, quest_label, accept_button, decline_button):
