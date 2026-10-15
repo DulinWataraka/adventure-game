@@ -1,6 +1,11 @@
 import tkinter as tk
 import random
 
+
+HP = 5
+MAX_HP = 5
+current_barrier = 1
+
 # ---------------- WINDOW ----------------
 
 window = tk.Tk()
@@ -88,18 +93,57 @@ def show_quest(name, name_label, name_entry, continue_button):
 
 
 
+
 def choose_barrier(choice):
+    global HP, current_barrier
+
     chances = [75, 45, 30]
+
+    success_messages = [
+        "You climbed the rock! 🎉🌟✨",
+        "You found your way around the rock! 🎉",
+        "You successfully broke the rock! 💥🎉"
+    ]
+
+    fail_messages = [
+        "You slipped and fell! 💀",
+        "You couldn't find your way around and got lost! 💀",
+        "The rock collapsed on you! 💀"
+    ]
 
     roll = random.randint(1, 100)
 
     if roll <= chances[choice]:
-        print("SUCCESS")
+        result_label.config(text=success_messages[choice])
+
+        current_barrier += 1
+        story_label.config(
+            text=f"Barrier {current_barrier}: The next obstacle awaits!"
+        )
+
     else:
-        print("FAILED")
+        HP -= 1
+
+        health_label.config(
+            text="❤️ " * HP + "🖤 " * (MAX_HP - HP)
+        )
+
+        result_label.config(
+            text=fail_messages[choice] + "\nTry again!"
+        )
+
+        if HP <= 0:
+            result_label.config(text="💀 GAME OVER! Your journey ends here.")
+            choice1.config(state="disabled")
+            choice2.config(state="disabled")
+            choice3.config(state="disabled")
+
     #accept quest function
 
 def accept_quest(name, quest_label, accept_button, decline_button):
+
+    global health_label, story_label
+    global choice1, choice2, choice3
 
     quest_label.destroy()
     accept_button.destroy()
@@ -158,6 +202,15 @@ def accept_quest(name, quest_label, accept_button, decline_button):
     command=lambda: choose_barrier(2)
     )
     choice3.pack(pady=5)
+
+    global result_label
+
+    result_label = tk.Label(
+    window,
+    text="",
+    font=("Arial", 16, "bold")
+    )
+    result_label.pack(pady=15)
 
     inventory_button = tk.Button(
         window,
