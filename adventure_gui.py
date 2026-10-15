@@ -7,6 +7,7 @@ MAX_HP = 5
 current_barrier = 1
 LEVEL = 1
 LEVEL_PROGRESS = 0
+inventory = []
 
 
 #barrier data
@@ -253,10 +254,27 @@ def choose_barrier(choice):
 
         update_level(True)
 
+
+        #award potion for success
+
+        if current_barrier in [1, 8] and barrier["chances"][choice] == min(barrier["chances"]):
+            inventory.append("🧪 Health Potion")
+            result_label.config(
+                text=result_label.cget("text") + "\n🎁 You found a Health Potion!"
+            )
+
+
+
         current_barrier += 1
 
         if current_barrier > len(barriers):
-            result_label.config(text="🏆 You've completed the available barriers!")
+            title.config(text="🏆 YOU MADE IT!")
+            story_label.config(
+            text="✨ Thank you, brave traveller!\n"
+             "The path is now safe because of you! 🏝️"
+            )
+            result_label.config(text="🎉 YOU WIN! 🎉")
+
             choice1.config(state="disabled")
             choice2.config(state="disabled")
             choice3.config(state="disabled")
@@ -331,6 +349,42 @@ def show_barrier():
     choice3.config(text=f"3. {barrier['options'][2]}")
 
 
+
+def show_inventory():
+    potion_count = inventory.count("🧪 Health Potion")
+
+    if potion_count == 0:
+        result_label.config(text="🎒 Your inventory is empty.")
+    else:
+        result_label.config(
+            text=f"🎒 Inventory:\n🧪 Health Potion ×{potion_count}"
+        )
+
+
+def use_potion():
+    global HP
+
+    if "🧪 Health Potion" not in inventory:
+        result_label.config(text="❌ You don't have a Health Potion!")
+        return
+
+    if HP == MAX_HP:
+        result_label.config(text="❤️ Your health is already full!")
+        return
+
+    inventory.remove("🧪 Health Potion")
+    HP = min(HP + 1, MAX_HP)
+
+    health_label.config(
+        text="❤️ " * HP + "🖤 " * (MAX_HP - HP)
+    )
+
+    result_label.config(text="🧪 You used a Health Potion! +1 HP")
+
+
+
+
+
     #accept quest function
 
 def accept_quest(name, quest_label, accept_button, decline_button):
@@ -354,14 +408,14 @@ def accept_quest(name, quest_label, accept_button, decline_button):
 
     level_label = tk.Label(
         window,
-        text="Level 1  ███░░░░░░░  Level 2",
+        text="Level 1  ░░░░░░░░░░░░  Level 2",
         font=("Arial", 14)
     )
     level_label.pack(pady=10)
 
     story_label = tk.Label(
         window,
-        
+        text="The journey begins...",
         font=("Arial", 18)
     )
     story_label.pack(pady=30)
@@ -411,9 +465,18 @@ def accept_quest(name, quest_label, accept_button, decline_button):
     inventory_button = tk.Button(
         window,
         text="🎒 Inventory",
-        font=("Arial", 12)
+        font=("Arial", 12),
+        command=show_inventory
     )
     inventory_button.pack(pady=15)
+
+    potion_button = tk.Button(
+    window,
+    text="🧪 Use Potion",
+    font=("Arial", 12),
+    command=use_potion
+    )
+    potion_button.pack(pady=5)
 
 
 # ---------------- START BUTTON ----------------
