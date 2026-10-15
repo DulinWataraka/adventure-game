@@ -40,6 +40,114 @@ barriers = [
             "You lost the fight! 💀"
         ]
     }
+    
+,
+    {
+        "name": "Logs 🪵",
+        "options": ["Jump", "Swim", "Walk over"],
+        "chances": [45, 30, 70],
+        "success": [
+            "You jumped over the log! 🎉🌟✨",
+            "You successfully swam across the logs! 🎉",
+            "You carefully walked over the logs! 🎉"
+        ],
+        "fail": [
+            "You hit the log! 💀",
+            "You got stuck inside the logs! 💀",
+            "You slipped and fell! 💀"
+        ]
+    },
+    {
+        "name": "Snake 🐍",
+        "options": ["Stay still", "Attack", "Run"],
+        "chances": [45, 30, 75],
+        "success": [
+            "You stayed still and avoided the snake! 🎉🌟✨",
+            "The venom was strong but you are stronger! 🎉",
+            "You escaped the snake! 🎉"
+        ],
+        "fail": [
+            "The snake attacked you! 💀",
+            "The snake bit you during the fight! 💀",
+            "You were too slow! 💀"
+        ]
+    },
+    {
+        "name": "Storm 🌪️",
+        "options": ["Push forward", "Hide", "Wait"],
+        "chances": [45, 70, 30],
+        "success": [
+            "You pushed forward and escaped the storm! 🎉🌟✨",
+            "You found shelter! 🎉",
+            "The storm passed safely! 🎉"
+        ],
+        "fail": [
+            "The storm threw you away! 💀",
+            "The storm found your hiding spot! 💀",
+            "The storm got even stronger! 💀"
+        ]
+    },
+    {
+        "name": "Shark 🦈",
+        "options": ["Swim fast", "Float", "Dive"],
+        "chances": [30, 70, 45],
+        "success": [
+            "You swam faster than the shark! 🎉🌟✨",
+            "The shark thought you were dead! 🎉",
+            "You escaped the shark by diving! 🎉"
+        ],
+        "fail": [
+            "The shark caught you! 💀",
+            "You moved and attracted the shark! 💀",
+            "You drowned while diving! 💀"
+        ]
+    },
+    {
+        "name": "Rock 🪨",
+        "options": ["Climb", "Go around", "Break"],
+        "chances": [30, 70, 45],
+        "success": [
+            "You climbed the rock! 🎉🌟✨",
+            "You found your way around the rock! 🎉",
+            "You successfully broke the rock! 💥🎉"
+        ],
+        "fail": [
+            "You slipped and fell! 💀",
+            "The water was too deep! 💀",
+            "The rock collapsed on you! 💀"
+        ]
+    },
+    {
+        "name": "Final Crocodile 🐊",
+        "options": ["Sneak", "Run", "Trick it"],
+        "chances": [30, 70, 45],
+        "success": [
+            "The crocodile couldn't see you! 🎉🌟✨",
+            "You were too fast for the crocodile! 🎉",
+            "You tricked the crocodile! 🎉"
+        ],
+        "fail": [
+            "The crocodile saw you! 💀",
+            "The crocodile caught you! 💀",
+            "Your trick failed! 💀"
+        ]
+    },
+    {
+        "name": "Bridge 🌉",
+        "options": ["Cross carefully", "Run", "Jump"],
+        "chances": [70, 45, 30],
+        "success": [
+            "Slow is steady and steady is fast! 🎉🌟✨",
+            "You ran across the bridge before it collapsed! 🎉",
+            "You jumped over the bridge! 🎉"
+        ],
+        "fail": [
+            "The bridge collapsed! 💀",
+            "You were too slow! 💀",
+            "You fell into the abyss! 💀"
+        ]
+    }
+
 ]
 
 
