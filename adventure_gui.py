@@ -6,6 +6,43 @@ HP = 5
 MAX_HP = 5
 current_barrier = 1
 
+
+#barrier data
+
+barriers = [
+    {
+        "name": "Rock 🪨",
+        "options": ["Climb", "Go Around", "Break"],
+        "chances": [75, 45, 30],
+        "success": [
+            "You climbed the rock! 🎉🌟✨",
+            "You found your way around the rock! 🎉",
+            "You successfully broke the rock! 💥🎉"
+        ],
+        "fail": [
+            "You slipped and fell! 💀",
+            "You couldn't find your way around and got lost! 💀",
+            "The rock collapsed on you! 💀"
+        ]
+    },
+    {
+        "name": "Crocodile 🐊",
+        "options": ["Sneak", "Run", "Attack"],
+        "chances": [75, 45, 30],
+        "success": [
+            "The crocodile couldn't see you! 🎉🌟✨",
+            "You successfully ran past the crocodile! 🎉",
+            "You defeated the crocodile! 🎉"
+        ],
+        "fail": [
+            "The crocodile saw you! 💀",
+            "The crocodile caught you! 💀",
+            "You lost the fight! 💀"
+        ]
+    }
+]
+
+
 # ---------------- WINDOW ----------------
 
 window = tk.Tk()
@@ -94,32 +131,25 @@ def show_quest(name, name_label, name_entry, continue_button):
 
 
 
+
 def choose_barrier(choice):
     global HP, current_barrier
 
-    chances = [75, 45, 30]
-
-    success_messages = [
-        "You climbed the rock! 🎉🌟✨",
-        "You found your way around the rock! 🎉",
-        "You successfully broke the rock! 💥🎉"
-    ]
-
-    fail_messages = [
-        "You slipped and fell! 💀",
-        "You couldn't find your way around and got lost! 💀",
-        "The rock collapsed on you! 💀"
-    ]
-
+    barrier = barriers[current_barrier - 1]
     roll = random.randint(1, 100)
 
-    if roll <= chances[choice]:
-        result_label.config(text=success_messages[choice])
+    if roll <= barrier["chances"][choice]:
+        result_label.config(text=barrier["success"][choice])
 
         current_barrier += 1
-        story_label.config(
-            text=f"Barrier {current_barrier}: The next obstacle awaits!"
-        )
+
+        if current_barrier > len(barriers):
+            result_label.config(text="🏆 You've completed the available barriers!")
+            choice1.config(state="disabled")
+            choice2.config(state="disabled")
+            choice3.config(state="disabled")
+        else:
+            show_barrier()
 
     else:
         HP -= 1
@@ -129,7 +159,7 @@ def choose_barrier(choice):
         )
 
         result_label.config(
-            text=fail_messages[choice] + "\nTry again!"
+            text=barrier["fail"][choice] + "\nTry again!"
         )
 
         if HP <= 0:
@@ -137,6 +167,22 @@ def choose_barrier(choice):
             choice1.config(state="disabled")
             choice2.config(state="disabled")
             choice3.config(state="disabled")
+
+
+
+
+
+def show_barrier():
+    barrier = barriers[current_barrier - 1]
+
+    story_label.config(
+        text=f"Barrier {current_barrier}: {barrier['name']}"
+    )
+
+    choice1.config(text=f"1. {barrier['options'][0]}")
+    choice2.config(text=f"2. {barrier['options'][1]}")
+    choice3.config(text=f"3. {barrier['options'][2]}")
+
 
     #accept quest function
 
@@ -167,7 +213,7 @@ def accept_quest(name, quest_label, accept_button, decline_button):
 
     story_label = tk.Label(
         window,
-        text="You stand before your first barrier...",
+        
         font=("Arial", 18)
     )
     story_label.pack(pady=30)
@@ -211,6 +257,8 @@ def accept_quest(name, quest_label, accept_button, decline_button):
     font=("Arial", 16, "bold")
     )
     result_label.pack(pady=15)
+
+    show_barrier()
 
     inventory_button = tk.Button(
         window,
