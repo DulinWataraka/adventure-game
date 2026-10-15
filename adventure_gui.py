@@ -5,6 +5,8 @@ import random
 HP = 5
 MAX_HP = 5
 current_barrier = 1
+LEVEL = 1
+LEVEL_PROGRESS = 0
 
 
 #barrier data
@@ -249,6 +251,8 @@ def choose_barrier(choice):
     if roll <= barrier["chances"][choice]:
         result_label.config(text=barrier["success"][choice])
 
+        update_level(True)
+
         current_barrier += 1
 
         if current_barrier > len(barriers):
@@ -261,6 +265,8 @@ def choose_barrier(choice):
 
     else:
         HP -= 1
+
+        update_level(False)
 
         health_label.config(
             text="❤️ " * HP + "🖤 " * (MAX_HP - HP)
@@ -277,6 +283,39 @@ def choose_barrier(choice):
             choice3.config(state="disabled")
 
 
+
+def update_level(success):
+    global LEVEL, LEVEL_PROGRESS, MAX_HP, HP
+
+    if success:
+        LEVEL_PROGRESS += 1
+    else:
+        LEVEL_PROGRESS -= 1
+
+    LEVEL_PROGRESS = max(0, LEVEL_PROGRESS)
+
+    if LEVEL_PROGRESS >= 4:
+        LEVEL += 1
+        LEVEL_PROGRESS = 0
+
+        MAX_HP += 1
+        HP = MAX_HP
+
+        result_label.config(
+            text=f"🎉 LEVEL UP! You reached Level {LEVEL}!\n"
+                 f"Your health is fully restored!"
+        )
+
+    filled = "█" * (LEVEL_PROGRESS * 3)
+    empty = "░" * (12 - LEVEL_PROGRESS * 3)
+
+    level_label.config(
+        text=f"{LEVEL} {filled}{empty} {LEVEL + 1}"
+    )
+
+    health_label.config(
+        text="❤️ " * HP + "🖤 " * (MAX_HP - HP)
+    )
 
 
 
@@ -296,7 +335,8 @@ def show_barrier():
 
 def accept_quest(name, quest_label, accept_button, decline_button):
 
-    global health_label, story_label
+
+    global health_label, story_label,level_label
     global choice1, choice2, choice3
 
     quest_label.destroy()
